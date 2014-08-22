@@ -1,10 +1,3 @@
-
-# This is the user-interface definition of a Shiny web application.
-# You can find out more about building applications with Shiny here:
-# 
-# http://www.rstudio.com/shiny/
-#
-
 library(shiny)
 
 shinyUI(
@@ -15,20 +8,37 @@ shinyUI(
       
       checkboxGroupInput(inputId='version', label='Versions', inline=TRUE, 
                          choices=levels(data_acc$version),
-                         selected=last(levels(data_acc$version))),
+                         selected=levels(data_acc$version)),
          
       checkboxGroupInput(inputId='model', label='Models', inline=TRUE, 
                          choices=levels(data_acc$model),
-                         selected=levels(data_acc$model)),
-         
+                         selected=levels(data_acc$model)[1:4]),
+      
       tags$small(paste('Select only one model to get more detailed',
-                        'information.')), 
+                        'information.')),
+      
+      h4("Info"),
+      p('Jaatha is a parameter estimation method for',
+        'Evolutionary Biology, available via CRAN package',
+        em('jaatha.'), 
+        'Given a model of evolution, it estimates',
+        'a set of model paramters from genetic data.'),
+      p('This shiny app displays results from benchmarks',
+        "that are executed for each release ('Versions'). ",
+        'In the benchmark',
+        'Jaatha is used on simulated data for five different models',
+        "('Models', details about them are not important here)",
+        'and the relative estimation error and runtime are',
+        'calulated.'),
+      p('Above, you can select if you want to plot the estimation errors',
+        '(accuary) or the runtime for the different models and versions.'),      
+      
       width = 3
     ),
                         
     mainPanel(
       plotOutput("plot_acc", height='600px'),
-      plotOutput("plot_rt", height='600px'), 
+      plotOutput("plot_rt", height='600px'),
       width=9
     )
   )
