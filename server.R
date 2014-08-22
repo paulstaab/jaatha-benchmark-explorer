@@ -1,22 +1,12 @@
-
-# This is the server logic for a Shiny web application.
-# You can find out more about building applications with Shiny here:
-# 
-# http://www.rstudio.com/shiny/
-#
-
 library(shiny)
 library(ggplot2)
 library(dplyr)
 
-# Load benchmark data for the R package `jaatha`, generated with 
-# https://github.com/paulstaab/jaatha-benchmark
-# This contains two data frames:
+# Two data frames are imported in global.R:
 # - data_acc contains relative estimation errors for the parameters
 #   of certain models (column model) and jaatha version (column version).
 # - data_runtime contains the runtime for jaatha runs (in seconds), again
 #   for different models and versions.
-load("acc_and_runtime.Rda")
 
 shinyServer(function(input, output) { 
   output$plot_acc <- renderPlot({      
